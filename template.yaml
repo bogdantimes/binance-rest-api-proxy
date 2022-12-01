@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: "AWS::Serverless-2016-10-31"
+Description: trading-helper-service
+
+Globals:
+  Api:
+    Auth:
+      ApiKeyRequired: false
+
+Resources:
+
+  FetchBinanceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: fetchBinance.handler
+      Timeout: 3
+      Runtime: nodejs18.x
+    Metadata: # Manage esbuild properties
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2022"
+        Sourcemap: false
+        EntryPoints:
+        - fetchBinance.ts
+
+  InvokeFunctionURLPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+        Action: lambda:invokeFunctionUrl
+        FunctionName: !GetAtt FetchBinanceFunction.Arn
+        Principal: "*"
+        FunctionUrlAuthType : NONE
+
+  FetchBinanceURL:
+    Type: AWS::Lambda::Url
+    Properties:
+      AuthType: NONE
+      TargetFunctionArn: !GetAtt FetchBinanceFunction.Arn
+      Cors:
+        AllowCredentials: true
+        AllowOrigins:
+          - "*"
+        AllowMethods:
+          - "*"
+        AllowHeaders:
+          - "*"
+        ExposeHeaders:
+          - "*"
+
+Outputs:
+  ServiceURL:
+    Description: "URL for FetchBinanceFunction"
+    Value: !GetAtt FetchBinanceURL.FunctionUrl

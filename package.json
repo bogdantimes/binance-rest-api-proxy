@@ -1,0 +1,34 @@
+{
+  "name": "trading-helper-service",
+  "version": "0.1.0",
+  "description": "A service which proxies any Binance REST API calls to make them originate from a region you like.\nDefault configuration creates AWS Lambda function and URL in eu-west-3 (Paris) region.",
+  "author": "Bohdan Kovalov",
+  "license": "MIT",
+  "scripts": {
+    "unit": "jest",
+    "lint": "eslint *.ts --quiet --fix",
+    "compile": "tsc",
+    "test": "npm run compile && npm run unit",
+    "build": "npm run compile && sam build --beta-features",
+    "invoke": "sam local invoke -e .\\events\\event.json",
+    "deploy": "npm run build && sam deploy --guided --region eu-west-3 --stack-name trading-helper-service --capabilities CAPABILITY_IAM",
+    "redeploy": "npm run build && sam deploy --config-file .\\samconfig.toml",
+    "tailLogs": "sam logs --stack-name trading-helper-service --region eu-west-3 --tail"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.109",
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.10",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "esbuild": "^0.15.16",
+    "esbuild-jest": "^0.5.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.3.1",
+    "prettier": "^2.8.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}

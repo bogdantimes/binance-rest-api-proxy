@@ -1,0 +1,8 @@
+{
+  "requestContext": {
+    "http": { "method": "GET" },
+  },
+  "headers": {},
+  "rawPath": "/ticker/price",
+  "rawQueryString": "symbol=BTCBUSD",
+}
