@@ -25,6 +25,12 @@ Resources:
         EntryPoints:
         - fetchBinance.ts
 
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${FetchBinanceFunction}"
+      RetentionInDays: 1
+
   InvokeFunctionURLPermission:
     Type: AWS::Lambda::Permission
     Properties:
