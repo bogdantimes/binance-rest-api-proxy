@@ -19,7 +19,8 @@ Now, using this URL you can make any requests to Binance REST API, by replacing 
 It supports all Binance REST API requests that do not include HTML body.
 It supports the `x-mbx-apikey` HTTP header.
 
-If you fill like this project helped you, you can support me on Patreon:
-* [patreon.com/bogdantimes](https://patreon.com/bogdantimes)
+## Hey
+
+If you fill like this project helped you, you can [support me on Patreon](https://patreon.com/bogdantimes).
 
 🫡
